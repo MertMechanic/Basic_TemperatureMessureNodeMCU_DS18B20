@@ -7,10 +7,10 @@ cTemperatureSensor::cTemperatureSensor()
 
 cTemperatureSensor::~cTemperatureSensor()
 {
-    // if(this->m_pValues != nullptr)
-    // {
-    //      delete[] this->m_pValues;
-    // }
+    if(this->m_pValues != nullptr)
+    {
+         delete[] this->m_pValues;
+    }
 }
 
 /**
@@ -67,10 +67,9 @@ void cTemperatureSensor::init(int _countOfSensors, int _BusInputPIN)
 }
 
 /**
- * @brief fill _pResult with messure Values and return false if there is an error reported
+ * @brief fill m_pValues with messure Values and return false if there is an error reported
  *        each sensor has his own hardware id so you need to care about it in your application 
  * 
- * @param _pResultArray 
  * @return index of Failed Sensor if -1 everything is fine
  */
 int cTemperatureSensor::updateTemperature()
@@ -82,21 +81,21 @@ int cTemperatureSensor::updateTemperature()
     {
         if (i < m_DS18B20.getDeviceCount())
         {
-            Serial.print("Sensor ");
-            Serial.print(i + 1);
-            Serial.print(": ");
+            // Serial.print("Sensor ");
+            // Serial.print(i + 1);
+            // Serial.print(": ");
 
             m_pValues[i] = m_DS18B20.getTempCByIndex(i);
             if (m_pValues[i] == DEVICE_DISCONNECTED_C)
             {
                 m_pValues[i] = No_Val;
-                Serial.println("Fehler");
+                // Serial.println("Fehler");
                 indexOfFailedSensor = i;
             }
             else
             {
                 Serial.print(m_pValues[i]);
-                Serial.println(" 'C");
+                // Serial.println(" 'C");
                 
             }
         }
