@@ -20,7 +20,7 @@ void initSerialSetup()
 float Temperature1;
 float Temperature2;
 
-cTemperatureSensor Temperature;
+TemperatureSensor Temperature;
 
 ///Pin Defines
 #define BUSINPUT_PIN D1 //Bus wire for Tempreture
@@ -72,5 +72,14 @@ int indexOfFailedSensor = Temperature.updateTemperature();
         Serial.print("updateTemperatur() failed index:");
         Serial.println(indexOfFailedSensor);
     }
+
+    String tmp1;
+    String tmp2;
+    Temperature.getValueByIndexAsString(0 , &tmp1);
+    Temperature.getValueByIndexAsString(1 , &tmp2);
+
+
+    Serial.println(tmp1);
+    Serial.println(tmp2);
 
 }

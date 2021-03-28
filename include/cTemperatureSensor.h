@@ -13,18 +13,19 @@
  *        Also care you hava a 4,7k resistor between vcc 3,3V and the data wire of the bus!
  * 
  */
-class cTemperatureSensor
+class TemperatureSensor
 {
 public:
-    cTemperatureSensor();
-    ~cTemperatureSensor();
+    TemperatureSensor();
+    ~TemperatureSensor();
 
     void init(int _countOfSensors, int _BusInputPIN);
     //Return index if failed - if ok == -1
     int updateTemperature();
     
     float getValueByIndex(int _index);
-    
+    String* getValueByIndexAsString(int _index, String* _pDestination);
+
 private:
     const float No_Val = 999.99;
     OneWire             m_oneWire;

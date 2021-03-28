@@ -1,11 +1,11 @@
 #include "cTemperatureSensor.h"
 
 
-cTemperatureSensor::cTemperatureSensor()
+TemperatureSensor::TemperatureSensor()
 {
 }
 
-cTemperatureSensor::~cTemperatureSensor()
+TemperatureSensor::~TemperatureSensor()
 {
     if(this->m_pValues != nullptr)
     {
@@ -19,7 +19,7 @@ cTemperatureSensor::~cTemperatureSensor()
  * @param _countOfSensors 
  * @param _BusInputPIN 
  */
-void cTemperatureSensor::init(int _countOfSensors, int _BusInputPIN)
+void TemperatureSensor::init(int _countOfSensors, int _BusInputPIN)
 {
     this->m_countOfSensors = _countOfSensors;
 
@@ -72,7 +72,7 @@ void cTemperatureSensor::init(int _countOfSensors, int _BusInputPIN)
  * 
  * @return index of Failed Sensor if -1 everything is fine
  */
-int cTemperatureSensor::updateTemperature()
+int TemperatureSensor::updateTemperature()
 {
 
     m_DS18B20.requestTemperatures();
@@ -95,7 +95,7 @@ int cTemperatureSensor::updateTemperature()
             else
             {
                 Serial.print(m_pValues[i]);
-                // Serial.println(" 'C");
+                Serial.println(" 'C");
                 
             }
         }
@@ -103,7 +103,7 @@ int cTemperatureSensor::updateTemperature()
     return indexOfFailedSensor;
 }
 
-float cTemperatureSensor::getValueByIndex(int _index)
+float TemperatureSensor::getValueByIndex(int _index)
 {
     if (_index < this->m_countOfSensors)
     {
@@ -113,4 +113,13 @@ float cTemperatureSensor::getValueByIndex(int _index)
     {
         return this->No_Val;
     }
+}
+
+String* TemperatureSensor::getValueByIndexAsString(int _index, String* _pDestination)
+{
+    *_pDestination = String(this->getValueByIndex(_index));
+
+    *_pDestination += String(" °C");
+
+    return _pDestination;
 }
